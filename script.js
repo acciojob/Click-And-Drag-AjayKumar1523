@@ -8,7 +8,7 @@ slider.addEventListener('mousedown', (e) => {
   isDown = true;
   slider.classList.add('active');
 
-  startX = e.pageX; // ✅ FIXED (removed offsetLeft)
+  startX = e.pageX; // important fix
   scrollLeft = slider.scrollLeft;
 });
 
@@ -27,8 +27,8 @@ slider.addEventListener('mousemove', (e) => {
 
   e.preventDefault();
 
-  const x = e.pageX; // ✅ FIXED
-  const walk = (x - startX); // movement difference
+  const x = e.pageX;
+  const walk = (x - startX) * 2;
 
   slider.scrollLeft = scrollLeft - walk;
 });
