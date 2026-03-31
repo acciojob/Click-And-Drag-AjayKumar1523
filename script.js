@@ -1,20 +1,22 @@
 const slider = document.querySelector('.items');
 
 let isDown = false;
-let startX;
-let scrollLeft;
+let lastX;
 
 slider.addEventListener('mousedown', (e) => {
   isDown = true;
-  startX = e.pageX;
-  scrollLeft = slider.scrollLeft;
+  lastX = e.pageX;
 });
 
 document.addEventListener('mousemove', (e) => {
   if (!isDown) return;
 
-  const walk = e.pageX - startX;
-  slider.scrollLeft = scrollLeft - walk;
+  const dx = e.pageX - lastX;
+
+  // 🔥 incremental update (key fix)
+  slider.scrollLeft -= dx;
+
+  lastX = e.pageX;
 });
 
 document.addEventListener('mouseup', () => {
