@@ -6,29 +6,24 @@ let scrollLeft;
 
 slider.addEventListener('mousedown', (e) => {
   isDown = true;
-  slider.classList.add('active');
-
-  startX = e.pageX - slider.offsetLeft;
+  startX = e.pageX;
   scrollLeft = slider.scrollLeft;
 });
 
 slider.addEventListener('mousemove', (e) => {
   if (!isDown) return;
 
-  e.preventDefault(); // 🔥 important for smooth drag
+  e.preventDefault();
 
-  const x = e.pageX - slider.offsetLeft;
-  const walk = (x - startX); 
+  const walk = e.pageX - startX;
 
   slider.scrollLeft = scrollLeft - walk;
 });
 
 slider.addEventListener('mouseup', () => {
   isDown = false;
-  slider.classList.remove('active');
 });
 
 slider.addEventListener('mouseleave', () => {
   isDown = false;
-  slider.classList.remove('active');
 });
