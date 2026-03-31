@@ -8,27 +8,25 @@ body {
 }
 
 .items {
-  width: 90%;
-  height: 300px;
-  overflow-x: scroll;
-  overflow-y: hidden;
-  white-space: nowrap;
+  width: 800px;
+  height: 400px;
   border: 2px solid white;
-  cursor: grab;
-}
-
-.items.active {
-  cursor: grabbing;
+  position: relative; /* IMPORTANT */
+  display: flex;
+  flex-wrap: wrap;
 }
 
 .item {
-  display: inline-flex;
-  width: 200px;
-  height: 100%;
+  width: 100px;
+  height: 100px;
   margin: 10px;
   background: #ff6b6b;
   color: white;
-  font-size: 40px;
+  font-size: 20px;
+  display: flex;
   justify-content: center;
   align-items: center;
+  cursor: grab;
+
+  position: absolute; /* REQUIRED FOR DRAGGING */
 }
