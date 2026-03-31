@@ -9,29 +9,30 @@ body {
 
 .items {
   width: 800px;
-  height: 400px;
+  height: 200px;
   border: 2px solid white;
-  position: relative; /* IMPORTANT */
-  display: flex;
-  flex-wrap: wrap;
+
+  overflow-x: scroll;
+  overflow-y: hidden;
+
+  white-space: nowrap;   /* 🔥 key */
+  cursor: grab;
 }
 
-.items {
-  overflow-x: scroll;
-  white-space: nowrap;
+.items.active {
+  cursor: grabbing;
 }
 
 .item {
-  width: 100px;
-  height: 100px;
+  display: inline-flex;   /* 🔥 key */
+  width: 200px;
+  height: 100%;
   margin: 10px;
+
   background: #ff6b6b;
   color: white;
-  font-size: 20px;
-  display: flex;
+  font-size: 40px;
+
   justify-content: center;
   align-items: center;
-  cursor: grab;
-
-  position: absolute; /* REQUIRED FOR DRAGGING */
 }
