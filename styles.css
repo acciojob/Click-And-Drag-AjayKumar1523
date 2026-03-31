@@ -16,6 +16,11 @@ body {
   flex-wrap: wrap;
 }
 
+.items {
+  overflow-x: scroll;
+  white-space: nowrap;
+}
+
 .item {
   width: 100px;
   height: 100px;
