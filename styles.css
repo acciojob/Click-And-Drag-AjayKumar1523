@@ -9,10 +9,14 @@ body {
 
 .items {
   width: 800px;
-  height: 400px;
+  height: 200px; /* 🔥 MUST NOT BE 0 */
   border: 2px solid white;
-  position: relative; /* IMPORTANT */
-  background: #222;
+
+  overflow-x: scroll;
+  overflow-y: hidden;
+
+  white-space: nowrap;
+  cursor: grab;
 }
 
 .item {

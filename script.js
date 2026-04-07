@@ -1,74 +1,32 @@
-// Select container and items
-const container = document.querySelector('.items');
-const items = document.querySelectorAll('.item');
+const slider = document.querySelector('.items');
 
-// --------------------
-// 1. Arrange in Grid
-// --------------------
-items.forEach((item, index) => {
-  const col = index % 6;                  // 6 items per row
-  const row = Math.floor(index / 6);
+let isDown = false;
+let startX;
+let scrollLeft;
 
-  item.style.position = "absolute";
-  item.style.left = `${col * 120 + 10}px`;
-  item.style.top = `${row * 120 + 10}px`;
+slider.addEventListener('mousedown', (e) => {
+  isDown = true;
+  slider.classList.add('active');
+
+  startX = e.pageX - slider.offsetLeft;
+  scrollLeft = slider.scrollLeft;
 });
 
-// --------------------
-// 2. Drag Variables
-// --------------------
-let activeItem = null;
-let offsetX = 0;
-let offsetY = 0;
+slider.addEventListener('mousemove', (e) => {
+  if (!isDown) return;
 
-// --------------------
-// 3. Mouse Down (Select Cube)
-// --------------------
-items.forEach(item => {
-  item.addEventListener('mousedown', (e) => {
-    activeItem = item;
+  const x = e.pageX - slider.offsetLeft;
+  const walk = (x - startX); // movement
 
-    // Distance between mouse and cube corner
-    offsetX = e.offsetX;
-    offsetY = e.offsetY;
-
-    item.style.cursor = 'grabbing';
-    item.style.zIndex = 1000; // bring to front
-  });
+  slider.scrollLeft = scrollLeft - walk;
 });
 
-// --------------------
-// 4. Mouse Move (Drag Cube)
-// --------------------
-document.addEventListener('mousemove', (e) => {
-  if (!activeItem) return;
-
-  const rect = container.getBoundingClientRect();
-
-  let x = e.clientX - rect.left - offsetX;
-  let y = e.clientY - rect.top - offsetY;
-
-  // --------------------
-  // 5. Boundary Constraints
-  // --------------------
-  const maxX = container.clientWidth - activeItem.offsetWidth;
-  const maxY = container.clientHeight - activeItem.offsetHeight;
-
-  x = Math.max(0, Math.min(x, maxX));
-  y = Math.max(0, Math.min(y, maxY));
-
-  // Apply position
-  activeItem.style.left = `${x}px`;
-  activeItem.style.top = `${y}px`;
+slider.addEventListener('mouseup', () => {
+  isDown = false;
+  slider.classList.remove('active');
 });
 
-// --------------------
-// 6. Mouse Up (Drop Cube)
-// --------------------
-document.addEventListener('mouseup', () => {
-  if (activeItem) {
-    activeItem.style.cursor = 'grab';
-    activeItem.style.zIndex = 1;
-  }
-  activeItem = null;
+slider.addEventListener('mouseleave', () => {
+  isDown = false;
+  slider.classList.remove('active');
 });
