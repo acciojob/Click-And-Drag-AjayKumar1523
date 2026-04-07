@@ -1,3 +1,4 @@
+/* Reset */
 body {
   margin: 0;
   display: flex;
@@ -7,29 +8,40 @@ body {
   background: #333;
 }
 
+/* Container */
 .items {
   width: 800px;
-  height: 200px; /* 🔥 MUST NOT BE 0 */
+  height: 200px;              /* 🔥 MUST (fixes Cypress visibility issue) */
   border: 2px solid white;
 
-  overflow-x: scroll;
+  overflow-x: scroll;         /* 🔥 enables horizontal scroll */
   overflow-y: hidden;
 
-  white-space: nowrap;
+  white-space: nowrap;        /* 🔥 keeps items in one row */
+
   cursor: grab;
+  scroll-behavior: smooth;
 }
 
+/* Active dragging */
+.items.active {
+  cursor: grabbing;
+}
+
+/* Items (cubes) */
 .item {
-  position: absolute; /* IMPORTANT */
-  width: 100px;
-  height: 100px;
+  display: inline-flex;       /* 🔥 horizontal layout */
+  width: 200px;               /* 🔥 fixed width */
+  height: 100%;
+
+  margin: 10px;               /* spacing between items */
+
   background: #ff6b6b;
   color: white;
-  font-size: 24px;
+  font-size: 40px;
 
-  display: flex;
   justify-content: center;
   align-items: center;
 
-  cursor: grab;
+  user-select: none;          /* prevents text selection while dragging */
 }

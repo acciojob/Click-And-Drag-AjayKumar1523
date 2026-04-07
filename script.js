@@ -6,27 +6,17 @@ let scrollLeft;
 
 slider.addEventListener('mousedown', (e) => {
   isDown = true;
-  slider.classList.add('active');
-
-  startX = e.pageX - slider.offsetLeft;
+  startX = e.pageX;              // ✅ FIX: no offsetLeft
   scrollLeft = slider.scrollLeft;
 });
 
-slider.addEventListener('mousemove', (e) => {
+document.addEventListener('mousemove', (e) => {
   if (!isDown) return;
 
-  const x = e.pageX - slider.offsetLeft;
-  const walk = (x - startX); // movement
-
-  slider.scrollLeft = scrollLeft - walk;
+  const dx = e.pageX - startX;   // ✅ pure delta
+  slider.scrollLeft = scrollLeft - dx;
 });
 
-slider.addEventListener('mouseup', () => {
+document.addEventListener('mouseup', () => {
   isDown = false;
-  slider.classList.remove('active');
-});
-
-slider.addEventListener('mouseleave', () => {
-  isDown = false;
-  slider.classList.remove('active');
 });
