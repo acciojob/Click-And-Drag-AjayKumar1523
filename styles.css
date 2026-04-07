@@ -1,4 +1,4 @@
-/* Reset */
+/* Reset & Centering */
 body {
   margin: 0;
   display: flex;
@@ -11,37 +11,36 @@ body {
 /* Container */
 .items {
   width: 800px;
-  height: 200px;              /* 🔥 MUST (fixes Cypress visibility issue) */
+  height: 200px;              /* 🔥 REQUIRED (fixes Cypress visibility issue) */
   border: 2px solid white;
 
   overflow-x: scroll;         /* 🔥 enables horizontal scroll */
   overflow-y: hidden;
 
-  white-space: nowrap;        /* 🔥 keeps items in one row */
+  white-space: nowrap;        /* 🔥 keeps items in one line */
 
   cursor: grab;
-  scroll-behavior: smooth;
 }
 
-/* Active dragging */
+/* Dragging state */
 .items.active {
   cursor: grabbing;
 }
 
-/* Items (cubes) */
+/* Items */
 .item {
-  display: inline-flex;       /* 🔥 horizontal layout */
-  width: 200px;               /* 🔥 fixed width */
-  height: 100%;
+  display: inline-block;      /* 🔥 ensures horizontal layout */
+  width: 300px;               /* 🔥 IMPORTANT: forces overflow */
+  height: 180px;
 
-  margin: 10px;               /* spacing between items */
+  margin: 10px;
 
   background: #ff6b6b;
   color: white;
   font-size: 40px;
 
-  justify-content: center;
-  align-items: center;
+  text-align: center;
+  line-height: 180px;
 
-  user-select: none;          /* prevents text selection while dragging */
+  user-select: none;          /* 🔥 prevents text selection while dragging */
 }
