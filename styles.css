@@ -9,30 +9,23 @@ body {
 
 .items {
   width: 800px;
-  height: 200px;
+  height: 400px;
   border: 2px solid white;
-
-  overflow-x: scroll;
-  overflow-y: hidden;
-
-  white-space: nowrap;   /* 🔥 key */
-  cursor: grab;
-}
-
-.items.active {
-  cursor: grabbing;
+  position: relative; /* IMPORTANT */
+  background: #222;
 }
 
 .item {
-  display: inline-flex;   /* 🔥 key */
-  width: 200px;
-  height: 100%;
-  margin: 10px;
-
+  position: absolute; /* IMPORTANT */
+  width: 100px;
+  height: 100px;
   background: #ff6b6b;
   color: white;
-  font-size: 40px;
+  font-size: 24px;
 
+  display: flex;
   justify-content: center;
   align-items: center;
+
+  cursor: grab;
 }

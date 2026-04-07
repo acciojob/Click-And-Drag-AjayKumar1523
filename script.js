@@ -1,24 +1,74 @@
-const slider = document.querySelector('.items');
+// Select container and items
+const container = document.querySelector('.items');
+const items = document.querySelectorAll('.item');
 
-let isDown = false;
-let lastX;
+// --------------------
+// 1. Arrange in Grid
+// --------------------
+items.forEach((item, index) => {
+  const col = index % 6;                  // 6 items per row
+  const row = Math.floor(index / 6);
 
-slider.addEventListener('mousedown', (e) => {
-  isDown = true;
-  lastX = e.pageX;
+  item.style.position = "absolute";
+  item.style.left = `${col * 120 + 10}px`;
+  item.style.top = `${row * 120 + 10}px`;
 });
 
+// --------------------
+// 2. Drag Variables
+// --------------------
+let activeItem = null;
+let offsetX = 0;
+let offsetY = 0;
+
+// --------------------
+// 3. Mouse Down (Select Cube)
+// --------------------
+items.forEach(item => {
+  item.addEventListener('mousedown', (e) => {
+    activeItem = item;
+
+    // Distance between mouse and cube corner
+    offsetX = e.offsetX;
+    offsetY = e.offsetY;
+
+    item.style.cursor = 'grabbing';
+    item.style.zIndex = 1000; // bring to front
+  });
+});
+
+// --------------------
+// 4. Mouse Move (Drag Cube)
+// --------------------
 document.addEventListener('mousemove', (e) => {
-  if (!isDown) return;
+  if (!activeItem) return;
 
-  const dx = e.pageX - lastX;
+  const rect = container.getBoundingClientRect();
 
-  // 🔥 incremental update (key fix)
-  slider.scrollLeft -= dx;
+  let x = e.clientX - rect.left - offsetX;
+  let y = e.clientY - rect.top - offsetY;
 
-  lastX = e.pageX;
+  // --------------------
+  // 5. Boundary Constraints
+  // --------------------
+  const maxX = container.clientWidth - activeItem.offsetWidth;
+  const maxY = container.clientHeight - activeItem.offsetHeight;
+
+  x = Math.max(0, Math.min(x, maxX));
+  y = Math.max(0, Math.min(y, maxY));
+
+  // Apply position
+  activeItem.style.left = `${x}px`;
+  activeItem.style.top = `${y}px`;
 });
 
+// --------------------
+// 6. Mouse Up (Drop Cube)
+// --------------------
 document.addEventListener('mouseup', () => {
-  isDown = false;
+  if (activeItem) {
+    activeItem.style.cursor = 'grab';
+    activeItem.style.zIndex = 1;
+  }
+  activeItem = null;
 });
